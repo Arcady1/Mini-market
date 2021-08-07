@@ -1,0 +1,28 @@
+@import './null-style';
+@import './fonts';
+@import './templ';
+@import './mixin';
+
+:root {
+    --min-width: 305px;
+    --max-width: 1440px;
+    // Font-size
+    --h1-fz: 1.75rem; // 28px
+    --price-fx: 1.5rem; // 24px
+    --h2-fz: 1.25rem; // 20px
+    --h3-fz: 1rem; //16px
+    --placeholder-fz: 0.75rem; //12px
+    --h4-fz: 0.625rem; //10px
+    // Font
+    --main-ff: 'Source Sans Pro', sans-serif;
+    --sub-ff: 'Inter', sans-serif;
+    // Bgc
+    --main-bgc: #FFFEFB;
+    // main
+    --main-transition: .3s;
+    // Sidebar
+    --button-inactive-color: #eee;
+    --button-active-color: #7BAE73;
+    // Product
+    --product-image-bgc: #ddd;
+}
