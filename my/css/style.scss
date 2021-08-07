@@ -1,0 +1,390 @@
+@import 'null-style';
+@import '../fonts/fonts';
+@import '../source/templ';
+@import '../source/mixin';
+@import 'media-style';
+
+:root {
+    --min-width: 305px;
+    --max-width: 1440px;
+    // Font-size
+    --h1-fz: 1.75rem; // 28px
+    --price-fx: 1.5rem; // 24px
+    --h2-fz: 1.25rem; // 20px
+    --h3-fz: 1rem; //16px
+    --placeholder-fz: 0.75rem; //12px
+    --h4-fz: 0.625rem; //10px
+    // Font
+    --main-ff: 'Source Sans Pro', sans-serif;
+    --sub-ff: 'Inter', sans-serif;
+    // Bgc
+    --main-bgc: #FFFEFB;
+    // main
+    --main-transition: .3s;
+    // Sidebar
+    --button-inactive-color: #eee;
+    --button-active-color: #7BAE73;
+    // Product
+    --product-image-bgc: #ddd;
+}
+
+body {
+    background-color: var(--main-bgc);
+}
+
+.content__wrapper {
+    display: block;
+    width: 100%;
+    min-width: var(--min-width);
+    max-width: var(--max-width);
+    height: auto;
+    background-color: var(--main-bgc);
+
+    .content {
+        display: block;
+        width: 100%;
+        height: auto;
+        background-color: var(--main-bgc);
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            height: auto;
+
+            .header__title {
+                @extend %title-font;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .header__filter {
+                @extend %filter-font;
+                @extend %filter-style;
+
+                display: block;
+                width: 121.49px;
+                height: 36px;
+                position: relative;
+
+                .filter__title {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    height: 100%;
+                    transition: var(--main-transition);
+                    color: inherit;
+
+                    .filter__arrow {
+                        display: block;
+                        width: 4.59px;
+                        height: 4.59px;
+                        border: solid #B4B4B4;
+                        border-width: 0 1px 1px 0;
+                        transform: rotate(45deg);
+                        transition: var(--main-transition);
+                    }
+                }
+
+                .filter__title:hover {
+                    color: #000;
+
+                    .filter__arrow {
+                        border-color: #000;
+                    }
+                }
+
+                .filter__element_padding {
+                    padding: 11px 12px 10px 12px;
+                }
+
+                .filter__menu {
+                    @extend %filter-style;
+
+                    opacity: 0;
+                    position: absolute;
+                    top: -100vh;
+                    transition: var(--main-transition);
+                    z-index: 1;
+                    text-align: center;
+                }
+
+                .filter__menu li {
+                    display: block;
+                    transition: var(--main-transition);
+                    color: inherit;
+                }
+
+                .filter__menu li:hover {
+                    cursor: pointer;
+                    color: #000;
+                }
+            }
+
+            .header__filter:hover .filter__menu {
+                top: 100%;
+                opacity: 1;
+            }
+        }
+
+        .main {
+            display: flex;
+            width: 100%;
+            height: auto;
+
+            .sidebar {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                min-width: 161px;
+                max-width: 332px;
+                height: 1%;
+                background-color: #FFFEFB;
+                box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
+                border-radius: 4px;
+
+                .sidebar__input__wrapper {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    position: relative;
+
+                    .sidebar__input__title {
+                        @extend %filter-title-font;
+
+                        display: block;
+                        width: auto;
+                    }
+
+                    .sidebar__input__textarea {
+                        height: 108px;
+                        resize: none;
+                    }
+
+                    .sidebar__input__title span:nth-child(2) {
+                        color: #FF8484;
+                        border-radius: 4px;
+                    }
+
+                    .sidebar__input__title_margin-bottom {
+                        margin-bottom: 4px;
+                    }
+
+
+                    .sidebar__input {
+                        @extend %filter-input-font;
+
+                        display: block;
+                        width: 100%;
+                        background-color: #FFFEFB;
+                        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                        border-radius: 4px;
+                        border: 1px solid transparent;
+                        transition: var(--main-transition);
+                    }
+
+                    .sidebar__input::placeholder {
+                        color: #B4B4B4;
+                    }
+
+                    .sidebar__input:focus {
+                        border-color: var(--button-active-color);
+                    }
+
+                    .sidebar__input__invalid {
+                        @extend %sidebar-input-invalid-font;
+
+                        display: block;
+                        position: absolute;
+                        width: 100%;
+                        height: auto;
+                        opacity: 0;
+                        transition: var(--main-transition);
+                    }
+
+                    .sidebar__input:not(:placeholder-shown) {
+                        transition: none;
+
+                        color: #3F3F3F;
+                    }
+
+                    .sidebar__input:invalid:not(:placeholder-shown) {
+                        border: 1px solid #FF8484;
+
+                        &~.sidebar__input__invalid {
+                            opacity: 1;
+                        }
+                    }
+
+                    .sidebar__input_padding {
+                        padding: 10px 16px 11px 10px;
+                    }
+                }
+
+                .sidebar__button {
+                    @extend %filter-button-font;
+
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    border-radius: 10px;
+                    transition: var(--main-transition);
+                }
+
+                .sidebar__button_margin {
+                    margin-top: min(8.455%, 24px);
+                    margin-bottom: min(8.455%, 24px);
+                }
+
+                .sidebar__button_inactive {
+                    background-color: var(--button-inactive-color);
+                }
+
+                .sidebar__button_active {
+                    background-color: var(--button-active-color);
+                    color: #fff;
+                }
+
+                .sidebar__button_padding {
+                    padding: 10px 16px 10px 16px;
+                }
+            }
+
+            .sidebar__input__wrapper:nth-child(2) {
+                .sidebar__input__title span:nth-child(2) {
+                    display: none;
+                }
+
+                .sidebar__input__invalid {
+                    display: none;
+                }
+            }
+
+            .sidebar__input__wrapper_margin {
+                margin-top: 16px;
+            }
+
+            .sidebar__input__wrapper_margin:first-child {
+                margin-top: 0;
+            }
+
+            .sidebar_padding {
+                padding: min(1.76%, 24px);
+                padding-bottom: 0;
+            }
+
+            .sidebar_margin-right {
+                margin-right: 16px;
+            }
+
+            .products {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                width: 100%;
+                max-width: 1028px;
+                height: auto;
+
+                .product__wrapper {
+                    display: block;
+                    width: 100%;
+                    min-width: 250px;
+                    max-width: 332px;
+                    height: 423px;
+                    background-color: #FFFEFB;
+                    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
+                    border-radius: 4px;
+                    transition: var(--main-transition);
+                    position: relative;
+                    top: 0;
+                    left: 0;
+
+                    .product__remove {
+                        display: block;
+                        width: 2rem;
+                        height: 2rem;
+                        position: absolute;
+                        top: -0.5rem;
+                        right: -0.5rem;
+                        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+                        border-radius: 10px;
+                        transition: var(--main-transition);
+
+                        @include backgroud-img(url('../img/product/delete-img.svg'), auto 1rem, #FF8484);
+                    }
+
+                    .product__remove:hover {
+                        cursor: pointer;
+                        background-color: #ff6b6b;
+                    }
+
+                    .product__image {
+                        display: block;
+                        width: 100%;
+                        height: 47.285%;
+                        border-radius: 4px;
+
+                        @include backgroud-img(url('https://icdn.digitaltrends.com/image/digitaltrends/gopro-hero9-black-review-dm-6-2.jpg'), auto 100%, var(--product-image-bgc));
+                    }
+
+                    .product__non-image__wrapper {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        width: 100%;
+                        height: calc(100% - 47.285%);
+
+                        .product__title {
+                            @extend %product-title-font;
+                        }
+
+                        .product__subtitle {
+                            @extend %product-description-font;
+                        }
+
+                        .product__subtitle_margin {
+                            margin-top: min(5.5%, 16px);
+                            margin-bottom: min(10.7%, 32px);
+                        }
+
+                        .product__price {
+                            @extend %product-price-font;
+                        }
+                    }
+
+                    .product__non-image__wrapper_padding {
+                        padding: min(5%, 16px);
+                        padding-bottom: min(7.5%, 24px);
+                    }
+                }
+
+                .product__wrapper:hover {
+                    cursor: pointer;
+                    background-color: var(--product-image-bgc);
+                    top: 5px;
+                    left: 0;
+                }
+
+                .product__wrapper_margin {
+                    margin-bottom: 16px;
+                }
+            }
+        }
+
+        .main_margin {
+            margin-top: 16px;
+        }
+    }
+
+    .content_padding {
+        padding: calc(10px + 22*(100% - 320px)/(1440 - 320));
+        padding-bottom: 0;
+    }
+}
+
+.content__wrapper_margin {
+    margin: 0 auto;
+}

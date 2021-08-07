@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>###</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="content__wrapper content__wrapper_margin">
+        <div class="content content_padding">
+            <div class="header">
+                <h1 class="header__title">Добавление товара</h1>
+                <div class="header__filter">
+                    <button class="filter__title filter__element_padding">
+                        <span>По умолчанию</span>
+                        <span class="filter__arrow"></span>
+                    </button>
+                    <div class="filter__menu">
+                        <li class="filter__element_padding">По возрастанию цены</li>
+                        <li class="filter__element_padding">По убыванию цены</li>
+                        <li class="filter__element_padding">По наименованию</li>
+                    </div>
+                </div>
+            </div>
+            <main class="main main_margin">
+                <form class="sidebar sidebar_padding sidebar_margin-right">
+                    <!-- Наименование товара -->
+                    <div class="sidebar__input__wrapper sidebar__input__wrapper_margin">
+                        <div class="sidebar__input__title sidebar__input__title_margin-bottom">
+                            <span>Наименование товара</span>
+                            <span>*</span>
+                        </div>
+                        <input type="text" class="sidebar__input sidebar__input_padding"
+                            placeholder="Введите наименование товара" required pattern="(\s*[a-zA-Zа-яА-Я0-9]+\s*)+">
+                        <p class="sidebar__input__invalid">Поле является обязательным</p>
+                    </div>
+                    <!-- Описание товара -->
+                    <div class="sidebar__input__wrapper sidebar__input__wrapper_margin">
+                        <div class="sidebar__input__title sidebar__input__title_margin-bottom">
+                            <span>Описание товара</span>
+                            <span>*</span>
+                        </div>
+                        <textarea name="" id="" cols="10" rows="6" placeholder="Введите описание товара"
+                            class="sidebar__input sidebar__input__textarea sidebar__input_padding"></textarea>
+                        <p class="sidebar__input__invalid">Поле является обязательным</p>
+                    </div>
+                    <!-- Ссылка на изображение товара -->
+                    <div class="sidebar__input__wrapper sidebar__input__wrapper_margin">
+                        <div class="sidebar__input__title sidebar__input__title_margin-bottom">
+                            <span>Ссылка на изображение товара</span>
+                            <span>*</span>
+                        </div>
+                        <input type="text" class="sidebar__input sidebar__input_padding" placeholder="Введите ссылку"
+                            required pattern="^\S*$">
+                        <p class="sidebar__input__invalid">Поле является обязательным</p>
+                    </div>
+                    <!-- Цена товара -->
+                    <div class="sidebar__input__wrapper sidebar__input__wrapper_margin">
+                        <div class="sidebar__input__title sidebar__input__title_margin-bottom">
+                            <span>Цена товара</span>
+                            <span>*</span>
+                        </div>
+                        <input type="text" class="sidebar__input sidebar__input_padding" placeholder="Введите цену"
+                            required pattern="[0-9]+">
+                        <p class="sidebar__input__invalid">Поле является обязательным</p>
+                    </div>
+                    <!-- Добавить товар -->
+                    <button
+                        class="sidebar__button sidebar__button_inactive sidebar__button_padding sidebar__button_margin">Добавить
+                        товар</button>
+                </form>
+                <div class="products">
+                    <div class="product__wrapper product__wrapper_margin">
+                        <div class="product__image"></div>
+                        <div class="product__non-image__wrapper product__non-image__wrapper_padding">
+                            <div class="product__remove"></div>
+                            <div class="product__title">Наименование товара</div>
+                            <div class="product__subtitle product__subtitle_margin">Довольно-таки интересное описание
+                                товара в несколько строк. Довольно-таки интересное описание товара в несколько строк
+                            </div>
+                            <div class="product__price">10 000 руб.</div>
+                        </div>
+                    </div>
+                    <div class="product__wrapper product__wrapper_margin">
+                        <div class="product__image"></div>
+                        <div class="product__non-image__wrapper product__non-image__wrapper_padding">
+                            <div class="product__remove"></div>
+                            <div class="product__title">Наименование товара</div>
+                            <div class="product__subtitle product__subtitle_margin">Довольно-таки интересное описание
+                                товара в несколько строк. Довольно-таки интересное описание товара в несколько строк
+                            </div>
+                            <div class="product__price">10 000 руб.</div>
+                        </div>
+                    </div>
+                    <div class="product__wrapper product__wrapper_margin">
+                        <div class="product__image"></div>
+                        <div class="product__non-image__wrapper product__non-image__wrapper_padding">
+                            <div class="product__remove"></div>
+                            <div class="product__title">Наименование товара</div>
+                            <div class="product__subtitle product__subtitle_margin">Довольно-таки интересное описание
+                                товара в несколько строк. Довольно-таки интересное описание товара в несколько строк
+                            </div>
+                            <div class="product__price">10 000 руб.</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>
