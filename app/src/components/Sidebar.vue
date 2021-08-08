@@ -48,8 +48,9 @@
         id="inputProductPrice"
         placeholder="Введите цену"
         required
-        pattern="[0-9]+"
+        pattern="(\d+ *)+"
         v-on:input="inputChangeHandler($event)"
+        v-model="input.inputPrice"
       />
       <p class="sidebar__input__invalid">Поле является обязательным</p>
     </div>
@@ -62,6 +63,7 @@
         sidebar__button_margin
       "
       v-bind:class="{ sidebar__button_active: sendButtonActive() }"
+      @click.prevent
     >
       Добавить товар
     </button>
@@ -77,9 +79,12 @@ export default {
     return {
       isButtonActive: false,
       input: {
-        inputProductName: false,
-        inputProductLink: false,
-        inputProductPrice: false,
+        correct: {
+          inputProductName: false,
+          inputProductLink: false,
+          inputProductPrice: false,
+        },
+        inputPrice: null,
       },
     };
   },
@@ -92,21 +97,28 @@ export default {
     },
     inputChangeHandler(event) {
       const elem = event.target;
+      const correctObj = this.input.correct;
 
       if (elem.validity.valid) {
-        this.input[elem.id] = true;
+        correctObj[elem.id] = true;
       } else {
-        this.input[elem.id] = false;
+        correctObj[elem.id] = false;
       }
 
       if (
-        this.input.inputProductName &&
-        this.input.inputProductLink &&
-        this.input.inputProductPrice
+        correctObj.inputProductName &&
+        correctObj.inputProductLink &&
+        correctObj.inputProductPrice
       ) {
         this.isButtonActive = true;
       } else {
         this.isButtonActive = false;
+      }
+
+      const price = this.input.inputPrice.replace(/ /g, "");
+
+      if (price && !isNaN(price - 0)) {
+        this.input.inputPrice = (price - 0).toLocaleString().replace(/,/g, " ");
       }
     },
   },
