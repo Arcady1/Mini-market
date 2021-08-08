@@ -1,0 +1,38 @@
+@media (max-width: 1088px) {
+    html {
+        font-size: 15px !important;
+    }
+}
+
+@media (max-width: 335px) {
+    .header__title {
+        font-size: 15px !important;
+    }
+
+    .product__wrapper:hover {
+        top: 0 !important;
+    }
+
+    .product__remove {
+        right: -5px !important;
+    }
+}
+
+@media (max-width: 712px) {
+    .product__wrapper {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 833px) {
+    .main {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        margin-right: 0 !important;
+        margin: 0 auto !important;
+
+        margin-bottom: 3% !important;
+    }
+}
