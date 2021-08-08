@@ -6,9 +6,11 @@
       <input
         type="text"
         class="sidebar__input sidebar__input_padding"
+        id="inputProductName"
         placeholder="Введите наименование товара"
         required
         pattern="(\s*[a-zA-Zа-яА-Я0-9]+\s*)+"
+        v-on:input="inputChangeHandler($event)"
       />
       <p class="sidebar__input__invalid">Поле является обязательным</p>
     </div>
@@ -16,8 +18,6 @@
     <div class="sidebar__input__wrapper sidebar__input__wrapper_margin">
       <SidebarInputTitle v-bind:title="sidebarTitles[1].title" />
       <textarea
-        name=""
-        id=""
         cols="10"
         rows="6"
         placeholder="Введите описание товара"
@@ -31,9 +31,11 @@
       <input
         type="text"
         class="sidebar__input sidebar__input_padding"
+        id="inputProductLink"
         placeholder="Введите ссылку"
         required
         pattern="^\S*$"
+        v-on:input="inputChangeHandler($event)"
       />
       <p class="sidebar__input__invalid">Поле является обязательным</p>
     </div>
@@ -43,9 +45,11 @@
       <input
         type="text"
         class="sidebar__input sidebar__input_padding"
+        id="inputProductPrice"
         placeholder="Введите цену"
         required
         pattern="[0-9]+"
+        v-on:input="inputChangeHandler($event)"
       />
       <p class="sidebar__input__invalid">Поле является обязательным</p>
     </div>
@@ -57,6 +61,7 @@
         sidebar__button_padding
         sidebar__button_margin
       "
+      v-bind:class="{ sidebar__button_active: sendButtonActive() }"
     >
       Добавить товар
     </button>
@@ -68,8 +73,42 @@ import SidebarInputTitle from "@/components/SidebarInputTitle";
 
 export default {
   props: ["sidebarTitles"],
+  data() {
+    return {
+      isButtonActive: false,
+      input: {
+        inputProductName: false,
+        inputProductLink: false,
+        inputProductPrice: false,
+      },
+    };
+  },
   components: {
     SidebarInputTitle,
+  },
+  methods: {
+    sendButtonActive() {
+      return this.isButtonActive;
+    },
+    inputChangeHandler(event) {
+      const elem = event.target;
+
+      if (elem.validity.valid) {
+        this.input[elem.id] = true;
+      } else {
+        this.input[elem.id] = false;
+      }
+
+      if (
+        this.input.inputProductName &&
+        this.input.inputProductLink &&
+        this.input.inputProductPrice
+      ) {
+        this.isButtonActive = true;
+      } else {
+        this.isButtonActive = false;
+      }
+    },
   },
 };
 </script>
@@ -166,12 +205,18 @@ export default {
   }
 
   .sidebar__button_inactive {
+    cursor: default;
     background-color: var(--button-inactive-color);
   }
 
   .sidebar__button_active {
     background-color: var(--button-active-color);
     color: #fff;
+  }
+
+  .sidebar__button_active:hover {
+    cursor: pointer;
+    background-color: var(--button-active--hover-color);
   }
 
   .sidebar__button_padding {
