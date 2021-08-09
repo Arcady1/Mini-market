@@ -2,32 +2,34 @@
   <form class="sidebar sidebar_padding sidebar_margin-right">
     <!-- Наименование товара -->
     <div class="sidebar__input__wrapper sidebar__input__wrapper_margin">
-      <SidebarInputTitle v-bind:title="sidebarTitles[0].title" />
+      <SidebarInputTitle v-bind:titleInfo="sidebarTitles[0]" />
       <input
         type="text"
         class="sidebar__input sidebar__input_padding"
         id="inputProductName"
         placeholder="Введите наименование товара"
         required
-        pattern="(\s*[a-zA-Zа-яА-Я0-9]+\s*)+"
+        pattern="(\s*\S+\s*)+"
         v-on:input="inputChangeHandler($event)"
+        v-model="input.info.name"
       />
       <p class="sidebar__input__invalid">Поле является обязательным</p>
     </div>
     <!-- Описание товара -->
     <div class="sidebar__input__wrapper sidebar__input__wrapper_margin">
-      <SidebarInputTitle v-bind:title="sidebarTitles[1].title" />
+      <SidebarInputTitle v-bind:titleInfo="sidebarTitles[1]" />
       <textarea
         cols="10"
         rows="6"
         placeholder="Введите описание товара"
         class="sidebar__input sidebar__input__textarea sidebar__input_padding"
+        v-model="input.info.descr"
       ></textarea>
       <p class="sidebar__input__invalid">Поле является обязательным</p>
     </div>
     <!-- Ссылка на изображение товара -->
     <div class="sidebar__input__wrapper sidebar__input__wrapper_margin">
-      <SidebarInputTitle v-bind:title="sidebarTitles[2].title" />
+      <SidebarInputTitle v-bind:titleInfo="sidebarTitles[2]" />
       <input
         type="text"
         class="sidebar__input sidebar__input_padding"
@@ -36,12 +38,13 @@
         required
         pattern="^\S*$"
         v-on:input="inputChangeHandler($event)"
+        v-model="input.info.link"
       />
       <p class="sidebar__input__invalid">Поле является обязательным</p>
     </div>
     <!-- Цена товара -->
     <div class="sidebar__input__wrapper sidebar__input__wrapper_margin">
-      <SidebarInputTitle v-bind:title="sidebarTitles[3].title" />
+      <SidebarInputTitle v-bind:titleInfo="sidebarTitles[3]" />
       <input
         type="text"
         class="sidebar__input sidebar__input_padding"
@@ -50,7 +53,7 @@
         required
         pattern="(\d+ *)+"
         v-on:input="inputChangeHandler($event)"
-        v-model="input.inputPrice"
+        v-model="input.info.price"
       />
       <p class="sidebar__input__invalid">Поле является обязательным</p>
     </div>
@@ -63,7 +66,7 @@
         sidebar__button_margin
       "
       v-bind:class="{ sidebar__button_active: sendButtonActive() }"
-      @click.prevent
+      @click.prevent="onSubmit()"
     >
       Добавить товар
     </button>
@@ -84,7 +87,12 @@ export default {
           inputProductLink: false,
           inputProductPrice: false,
         },
-        inputPrice: null,
+        info: {
+          name: "",
+          descr: "",
+          link: "",
+          price: null,
+        },
       },
     };
   },
@@ -99,12 +107,14 @@ export default {
       const elem = event.target;
       const correctObj = this.input.correct;
 
+      // Input status: correct / incorrect
       if (elem.validity.valid) {
         correctObj[elem.id] = true;
       } else {
         correctObj[elem.id] = false;
       }
 
+      // Activate the submit button if all input fields are correct
       if (
         correctObj.inputProductName &&
         correctObj.inputProductLink &&
@@ -115,11 +125,48 @@ export default {
         this.isButtonActive = false;
       }
 
-      const price = this.input.inputPrice.replace(/ /g, "");
+      // Thousands space separation mask for the price field
+      if (elem.id === "inputProductPrice") {
+        const price = this.input.info.price.replace(/ /g, "");
 
-      if (price && !isNaN(price - 0)) {
-        this.input.inputPrice = (price - 0).toLocaleString().replace(/,/g, " ");
+        if (price && !isNaN(price - 0)) {
+          this.input.info.price = (price - 0)
+            .toLocaleString()
+            .replace(/,/g, " ");
+        }
       }
+    },
+    onSubmit() {
+      // Check Send button for activity
+      if (!this.isButtonActive) {
+        return false;
+      }
+
+      // Generating a new product
+      const newProductItem = {
+        id: new Date() - 0 + Math.random(),
+        name: this.input.info.name,
+        descr: this.input.info.descr,
+        imageLink: this.input.info.link,
+        price: this.input.info.price,
+      };
+
+      // Input field cleaning
+      this.input.info.name = "";
+      this.input.info.descr = "";
+      this.input.info.link = "";
+      this.input.info.price = null;
+
+      // Input status incorrect
+      this.input.correct.inputProductName = false;
+      this.input.correct.inputProductLink = false;
+      this.input.correct.inputProductPrice = false;
+
+      // Deactivating the send button
+      this.isButtonActive = false;
+
+      // Adding a new product
+      this.$emit("add-product", newProductItem);
     },
   },
 };
@@ -237,10 +284,6 @@ export default {
 }
 
 .sidebar__input__wrapper:nth-child(2) {
-  div span:nth-child(2) {
-    display: none;
-  }
-
   .sidebar__input__invalid {
     display: none;
   }
