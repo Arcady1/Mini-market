@@ -13,7 +13,7 @@
     <div
       class="product__non-image__wrapper product__non-image__wrapper_padding"
     >
-      <div class="product__remove"></div>
+      <div class="product__remove" v-on:click="removeProd"></div>
       <div class="product__title">{{ product.name }}</div>
       <div class="product__subtitle product__subtitle_margin">
         {{ product.descr }}
@@ -28,6 +28,11 @@
 <script>
 export default {
   props: ["product"],
+  methods: {
+    removeProd() {
+      this.$emit("remove-product-item", this.product.id);
+    },
+  },
 };
 </script>
 

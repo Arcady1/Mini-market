@@ -1,10 +1,13 @@
 <template>
   <main class="main main_margin">
     <Sidebar
-      @add-product="addProductItem"
       v-bind:sidebarTitles="sidebarTitles"
+      v-on:add-product="addProductItem"
     />
-    <Products v-bind:productsList="productsList" />
+    <Products
+      v-bind:productsList="productsList"
+      v-on:remove-product="removeProductItem"
+    />
   </main>
 </template>
 
@@ -22,7 +25,15 @@ export default {
         { title: "Ссылка на изображение товара", necessarily: true },
         { title: "Цена товара", necessarily: true },
       ],
-      productsList: [],
+      productsList: {
+        // id: {
+        //   id: new Date() - 0 + Math.random(),
+        //   name: this.input.info.name,
+        //   descr: this.input.info.descr,
+        //   imageLink: this.input.info.link,
+        //   price: this.input.info.price,
+        // },
+      },
     };
   },
   components: {
@@ -32,7 +43,10 @@ export default {
   },
   methods: {
     addProductItem(newProduct) {
-      this.productsList.push(newProduct);
+      this.productsList[newProduct.id] = newProduct;
+    },
+    removeProductItem(productId) {
+      delete this.productsList[productId];
     },
   },
 };

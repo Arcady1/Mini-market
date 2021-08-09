@@ -4,6 +4,7 @@
       v-for="product in productsList"
       :key="product.id"
       v-bind:product="product"
+      v-on:remove-product-item="removeProduct"
     />
   </div>
 </template>
@@ -15,6 +16,11 @@ export default {
   props: ["productsList"],
   components: {
     ProductItem,
+  },
+  methods: {
+    removeProduct(prodId) {
+      this.$emit("remove-product", prodId);
+    },
   },
 };
 </script>
