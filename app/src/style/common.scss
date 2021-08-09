@@ -2,6 +2,7 @@
 @import './fonts';
 @import './templ';
 @import './mixin';
+@import './media-style';
 
 :root {
     --min-width: 305px;
@@ -23,6 +24,7 @@
     // Sidebar
     --button-inactive-color: #eee;
     --button-active-color: #7BAE73;
+    --button-active--hover-color: green;
     // Product
     --product-image-bgc: #ddd;
 }

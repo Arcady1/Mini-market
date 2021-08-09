@@ -1,13 +1,13 @@
 <template>
   <div class="sidebar__input__title sidebar__input__title_margin-bottom">
-    <span>{{ title }}</span>
-    <span>*</span>
+    <span>{{ titleInfo.title }}</span>
+    <span v-bind:class="{ display_none: !titleInfo.necessarily }">*</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["title"],
+  props: ["titleInfo"],
 };
 </script>
 
@@ -28,5 +28,9 @@ export default {
 
 .sidebar__input__title_margin-bottom {
   margin-bottom: 4px;
+}
+
+.display_none {
+  display: none;
 }
 </style>

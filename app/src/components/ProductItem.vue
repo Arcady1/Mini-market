@@ -1,19 +1,35 @@
 <template>
   <div class="product__wrapper product__wrapper_margin">
-    <div class="product__image"></div>
+    <div class="product__image__wrapper">
+      <img
+        class="product__image"
+        v-bind:src="product.imageLink"
+        @error="
+          $event.target.src =
+            'https://image.flaticon.com/icons/png/512/2088/2088090.png'
+        "
+      />
+    </div>
     <div
       class="product__non-image__wrapper product__non-image__wrapper_padding"
     >
       <div class="product__remove"></div>
-      <div class="product__title">Наименование товара</div>
+      <div class="product__title">{{ product.name }}</div>
       <div class="product__subtitle product__subtitle_margin">
-        Довольно-таки интересное описание товара в несколько строк.
-        Довольно-таки интересное описание товара в несколько строк
+        {{ product.descr }}
       </div>
-      <div class="product__price">10 000 руб.</div>
+      <div class="product__price">
+        <span>{{ product.price }}</span> <span>руб.</span>
+      </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: ["product"],
+};
+</script>
 
 <style lang="scss" scoped>
 @import "../style/templ";
@@ -53,17 +69,20 @@
     background-color: #ff6b6b;
   }
 
-  .product__image {
+  .product__image__wrapper {
     display: block;
     width: 100%;
     height: 47.285%;
     border-radius: 4px;
+    overflow: hidden;
+    background-color: var(--product-image-bgc);
 
-    @include backgroud-img(
-      url("https://icdn.digitaltrends.com/image/digitaltrends/gopro-hero9-black-review-dm-6-2.jpg"),
-      auto 100%,
-      var(--product-image-bgc)
-    );
+    .product__image {
+      display: block;
+      width: auto;
+      height: 100%;
+      margin: 0 auto;
+    }
   }
 
   .product__non-image__wrapper {

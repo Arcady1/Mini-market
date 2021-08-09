@@ -1,7 +1,10 @@
 <template>
   <main class="main main_margin">
-    <Sidebar v-bind:sidebarTitles="sidebarTitles" />
-    <Products />
+    <Sidebar
+      @add-product="addProductItem"
+      v-bind:sidebarTitles="sidebarTitles"
+    />
+    <Products v-bind:productsList="productsList" />
   </main>
 </template>
 
@@ -14,17 +17,23 @@ export default {
   data() {
     return {
       sidebarTitles: [
-        { title: "Наименование товара" },
-        { title: "Описание товара" },
-        { title: "Ссылка на изображение товара" },
-        { title: "Цена товара" },
+        { title: "Наименование товара", necessarily: true },
+        { title: "Описание товара", necessarily: false },
+        { title: "Ссылка на изображение товара", necessarily: true },
+        { title: "Цена товара", necessarily: true },
       ],
+      productsList: [],
     };
   },
   components: {
     Sidebar,
     Products,
     Main,
+  },
+  methods: {
+    addProductItem(newProduct) {
+      this.productsList.push(newProduct);
+    },
   },
 };
 </script>
