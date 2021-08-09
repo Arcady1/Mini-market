@@ -5,6 +5,7 @@
       <SidebarInputTitle v-bind:titleInfo="sidebarTitles[0]" />
       <input
         type="text"
+        autocomplete="off"
         class="sidebar__input sidebar__input_padding"
         id="inputProductName"
         placeholder="Введите наименование товара"
@@ -19,6 +20,7 @@
     <div class="sidebar__input__wrapper sidebar__input__wrapper_margin">
       <SidebarInputTitle v-bind:titleInfo="sidebarTitles[1]" />
       <textarea
+        autocomplete="off"
         cols="10"
         rows="6"
         placeholder="Введите описание товара"
@@ -32,6 +34,7 @@
       <SidebarInputTitle v-bind:titleInfo="sidebarTitles[2]" />
       <input
         type="text"
+        autocomplete="off"
         class="sidebar__input sidebar__input_padding"
         id="inputProductLink"
         placeholder="Введите ссылку"
@@ -47,6 +50,7 @@
       <SidebarInputTitle v-bind:titleInfo="sidebarTitles[3]" />
       <input
         type="text"
+        autocomplete="off"
         class="sidebar__input sidebar__input_padding"
         id="inputProductPrice"
         placeholder="Введите цену"

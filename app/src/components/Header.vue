@@ -2,8 +2,10 @@
   <header class="header">
     <h1 class="header__title">Добавление товара</h1>
     <div class="header__filter">
-      <button class="filter__title filter__element_padding">
-        <span>По умолчанию</span>
+      <button
+        class="filter__title filter__title_margin filter__element_padding"
+      >
+        <span>{{ filterIdToText }}</span>
         <span class="filter__arrow"></span>
       </button>
       <div class="filter__menu">
@@ -22,9 +24,20 @@
 import HeaderFilterItem from "@/components/HeaderFilterItem";
 
 export default {
+  props: ["sortFilterId"],
+  // filters: {
+  //   filterIdToText(filterId) {
+  //     console.log(filterId);
+  //     return filterId + 20;
+  //   },
+  // },
   data() {
     return {
       filters: [
+        {
+          name: "По умолчанию",
+          id: 0,
+        },
         {
           name: "По возрастанию цены",
           id: 1,
@@ -38,10 +51,20 @@ export default {
           id: 3,
         },
       ],
+      currentFilter: "По умолчанию",
     };
   },
   components: {
     HeaderFilterItem,
+  },
+  computed: {
+    filterIdToText() {
+      const filterObj = this.filters.find(
+        (filterObj) => filterObj.id === this.sortFilterId
+      );
+
+      return filterObj.name;
+    },
   },
   methods: {
     productsSort(filterId) {
@@ -73,7 +96,7 @@ export default {
     @extend %filter-style;
 
     display: block;
-    width: 121.49px;
+    width: auto;
     height: 36px;
     position: relative;
 
@@ -97,6 +120,10 @@ export default {
       }
     }
 
+    .filter__title_margin {
+      margin-right: 5px;
+    }
+
     .filter__title:hover {
       color: #000;
 
@@ -112,9 +139,10 @@ export default {
     .filter__menu {
       @extend %filter-style;
 
+      width: 100%;
       opacity: 0;
       position: absolute;
-      top: -100vh;
+      top: -410%;
       transition: var(--main-transition);
       z-index: 1;
       text-align: center;

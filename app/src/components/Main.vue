@@ -5,9 +5,11 @@
       v-on:add-product="addProductItem"
     />
     <Products
+      v-if="productsList.length"
       v-bind:productsList="productsList"
       v-on:remove-product="removeProductItem"
     />
+    <div class="main__no-products" v-else></div>
   </main>
 </template>
 
@@ -17,17 +19,7 @@ import Products from "@/components/Products";
 import Main from "@/components/Main.vue";
 
 export default {
-  data() {
-    return {
-      sidebarTitles: [
-        { title: "Наименование товара", necessarily: true },
-        { title: "Описание товара", necessarily: false },
-        { title: "Ссылка на изображение товара", necessarily: true },
-        { title: "Цена товара", necessarily: true },
-      ],
-      productsList: [],
-    };
-  },
+  props: ["sidebarTitles", "productsList"],
   components: {
     Sidebar,
     Products,
@@ -35,12 +27,10 @@ export default {
   },
   methods: {
     addProductItem(newProduct) {
-      this.productsList.push(newProduct);
+      this.$emit("add-product", newProduct);
     },
     removeProductItem(productId) {
-      this.productsList = this.productsList.filter(
-        (product) => product.id !== productId
-      );
+      this.$emit("remove-product", productId);
     },
   },
 };
@@ -55,5 +45,15 @@ export default {
 
 .main_margin {
   margin-top: 16px;
+}
+
+.main__no-products {
+  display: block;
+  width: 100%;
+  height: auto;
+  background-image: url('../img/shopping-basket.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto 40%;
 }
 </style>
