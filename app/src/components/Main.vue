@@ -25,15 +25,7 @@ export default {
         { title: "Ссылка на изображение товара", necessarily: true },
         { title: "Цена товара", necessarily: true },
       ],
-      productsList: {
-        // id: {
-        //   id: new Date() - 0 + Math.random(),
-        //   name: this.input.info.name,
-        //   descr: this.input.info.descr,
-        //   imageLink: this.input.info.link,
-        //   price: this.input.info.price,
-        // },
-      },
+      productsList: [],
     };
   },
   components: {
@@ -43,10 +35,12 @@ export default {
   },
   methods: {
     addProductItem(newProduct) {
-      this.productsList[newProduct.id] = newProduct;
+      this.productsList.push(newProduct);
     },
     removeProductItem(productId) {
-      delete this.productsList[productId];
+      this.productsList = this.productsList.filter(
+        (product) => product.id !== productId
+      );
     },
   },
 };

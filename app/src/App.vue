@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header />
+    <Header v-on:product-sort="productsSort" />
     <Main />
   </div>
 </template>
@@ -11,9 +11,19 @@ import Main from "@/components/Main";
 
 export default {
   name: "App",
+  data() {
+    return {
+      sortFilterId: null,
+    };
+  },
   components: {
     Header,
     Main,
+  },
+  methods: {
+    productsSort(sortId) {
+      sortFilterId = sortId;
+    },
   },
 };
 </script>

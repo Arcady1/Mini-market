@@ -7,13 +7,49 @@
         <span class="filter__arrow"></span>
       </button>
       <div class="filter__menu">
-        <li class="filter__element_padding">По возрастанию цены</li>
-        <li class="filter__element_padding">По убыванию цены</li>
-        <li class="filter__element_padding">По наименованию</li>
+        <HeaderFilterItem
+          v-for="filter in filters"
+          v-bind:key="filter.id"
+          v-bind:filter="filter"
+          v-on:products-sort="productsSort"
+        />
       </div>
     </div>
   </header>
 </template>
+
+<script>
+import HeaderFilterItem from "@/components/HeaderFilterItem";
+
+export default {
+  data() {
+    return {
+      filters: [
+        {
+          name: "По возрастанию цены",
+          id: 1,
+        },
+        {
+          name: "По убыванию цены",
+          id: 2,
+        },
+        {
+          name: "По наименованию",
+          id: 3,
+        },
+      ],
+    };
+  },
+  components: {
+    HeaderFilterItem,
+  },
+  methods: {
+    productsSort(filterId) {
+      this.$emit("product-sort", filterId);
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 @import "../style/templ";
@@ -82,17 +118,6 @@
       transition: var(--main-transition);
       z-index: 1;
       text-align: center;
-    }
-
-    .filter__menu li {
-      display: block;
-      transition: var(--main-transition);
-      color: inherit;
-    }
-
-    .filter__menu li:hover {
-      cursor: pointer;
-      color: #000;
     }
   }
 
