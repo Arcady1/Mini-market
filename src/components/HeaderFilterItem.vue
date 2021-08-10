@@ -20,8 +20,10 @@ export default {
 
 .filter__element {
   display: block;
+  -webkit-transition: var(--main-transition);
   transition: var(--main-transition);
   color: inherit;
+  font-size: inherit;
 }
 
 .filter__element:hover {

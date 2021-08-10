@@ -50,6 +50,7 @@ export default {
   box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04),
     0px 6px 10px rgba(0, 0, 0, 0.02);
   border-radius: 4px;
+  -webkit-transition: var(--main-transition);
   transition: var(--main-transition);
   position: relative;
   top: 0;
@@ -64,6 +65,7 @@ export default {
     right: -0.5rem;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    -webkit-transition: var(--main-transition);
     transition: var(--main-transition);
 
     @include backgroud-img(url("../img/delete-img.svg"), auto 1rem, #ff8484);
@@ -91,8 +93,12 @@ export default {
   }
 
   .product__non-image__wrapper {
+    display: -webkit-box;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
     flex-direction: column;
+    -webkit-box-pack: justify;
     justify-content: space-between;
     width: 100%;
     height: calc(100% - 47.285%);
