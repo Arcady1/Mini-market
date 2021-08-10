@@ -4,7 +4,7 @@
       v-bind:sidebarTitles="sidebarTitles"
       v-on:add-product="addProductItem"
     />
-    <Loader v-if="productsLoading"/>
+    <Loader v-if="productsLoading" />
     <Products
       v-else-if="productsList.length"
       v-bind:productsList="productsList"
@@ -36,7 +36,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.productsLoading = false;
-    }, 1000);
+    }, 500);
   },
   methods: {
     addProductItem(newProduct) {

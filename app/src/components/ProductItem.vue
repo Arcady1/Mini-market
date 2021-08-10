@@ -19,7 +19,7 @@
         {{ product.descr }}
       </div>
       <div class="product__price">
-        <span>{{ product.price }}</span> <span>руб.</span>
+        <span>{{ product.priceStr }}</span> <span>руб.</span>
       </div>
     </div>
   </div>

@@ -44,8 +44,6 @@ export default {
     productsSort(sortId) {
       this.sortFilterId = sortId;
 
-      console.log(this.sortFilterId);
-
       // Sorting by increasing price
       if (this.sortFilterId === 1) {
         this.productsList.sort((a, b) => a.price - b.price);

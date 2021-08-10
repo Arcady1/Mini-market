@@ -56,8 +56,8 @@
         placeholder="Введите цену"
         required
         pattern="(\d+ *)+"
+        v-model="input.info.priceStr"
         v-on:input="inputChangeHandler($event)"
-        v-model="input.info.price"
       />
       <p class="sidebar__input__invalid">Поле является обязательным</p>
     </div>
@@ -95,7 +95,8 @@ export default {
           name: "",
           descr: "",
           link: "",
-          price: null,
+          priceStr: "",
+          price: "",
         },
       },
     };
@@ -138,10 +139,11 @@ export default {
     // Thousands space separation mask for the price field
     priceThousandsSeparation(elem) {
       if (elem.id === "inputProductPrice") {
-        const price = this.input.info.price.replace(/ /g, "");
+        let priceStr = this.input.info.priceStr.replace(/ /g, "");
 
-        if (price && !isNaN(price - 0)) {
-          this.input.info.price = (price - 0)
+        if (priceStr && !isNaN(priceStr - 0)) {
+          this.input.info.price = priceStr - 0;
+          this.input.info.priceStr = this.input.info.price
             .toLocaleString()
             .replace(/,/g, " ");
         }
@@ -153,37 +155,37 @@ export default {
         return false;
       }
 
+      const input = this.input;
       // Generating a new product
       const newProductItem = {
         id: new Date() - 0 + Math.random(),
-        name: this.input.info.name,
-        descr: this.input.info.descr,
-        imageLink: this.input.info.link,
-        price: this.input.info.price - 0,
+        name: input.info.name,
+        descr: input.info.descr,
+        imageLink: input.info.link,
+        priceStr: input.info.priceStr,
+        price: input.info.price,
       };
 
-      this.inputClean(this.input);
-      this.inputStatusReset(this.input);
+      this.inputClean(input);
+      this.inputStatusReset(input);
 
       // Deactivating the send button
       this.isButtonActive = false;
-
       // Adding a new product
       this.$emit("add-product", newProductItem);
     },
     // Input fields cleaning
     inputClean(input) {
-      input.info.name = "";
-      input.info.descr = "";
-      input.info.link = "";
-      input.info.price = null;
+      for (let key in input.info) {
+        input.info[key] = "";
+      }
     },
     // Input status reset
     inputStatusReset(input) {
       // Input status incorrect
-      input.correct.inputProductName = false;
-      input.correct.inputProductLink = false;
-      input.correct.inputProductPrice = false;
+      for (let key in input.correct) {
+        input.correct[key] = false;
+      }
     },
   },
 };
