@@ -1,7 +1,15 @@
 <template>
   <div>
-    <Header />
-    <Main />
+    <Header
+      v-on:product-sort="productsSort"
+      v-bind:sortFilterId="sortFilterId"
+    />
+    <Main
+      v-on:add-product="addProduct"
+      v-on:remove-product="removeProduct"
+      v-bind:sidebarTitles="sidebarTitles"
+      v-bind:productsList="productsList"
+    />
   </div>
 </template>
 
@@ -11,9 +19,71 @@ import Main from "@/components/Main";
 
 export default {
   name: "App",
+  data() {
+    return {
+      sidebarTitles: [
+        { title: "Наименование товара", necessarily: true },
+        { title: "Описание товара", necessarily: false },
+        { title: "Ссылка на изображение товара", necessarily: true },
+        { title: "Цена товара", necessarily: true },
+      ],
+      productsList: [],
+      sortFilterId: 0,
+    };
+  },
+  // mounted() {},
   components: {
     Header,
     Main,
+  },
+  mounted() {
+    if (localStorage.getItem("productsList") === null) {
+      this.productsList = [];
+    } else {
+      this.productsList = JSON.parse(localStorage.getItem("productsList"));
+    }
+  },
+  methods: {
+    // Product sorting method
+    productsSort(sortId) {
+      this.sortFilterId = sortId;
+
+      // Sorting by increasing price
+      if (this.sortFilterId === 1) {
+        this.productsList.sort((a, b) => a.price - b.price);
+      }
+      // Sorting by decreasing price
+      else if (this.sortFilterId === 2) {
+        this.productsList.sort((a, b) => b.price - a.price);
+      }
+      // Sorting by increasing name
+      else if (this.sortFilterId === 0 || this.sortFilterId === 3) {
+        this.productsList.sort((a, b) => {
+          let nameA = a.name.toLowerCase();
+          let nameB = b.name.toLowerCase();
+
+          if (nameA < nameB) return -1;
+          else if (nameA > nameB) return 1;
+          else return 0;
+        });
+      }
+    },
+    // Add product method
+    addProduct(newProduct) {
+      this.productsList.push(newProduct);
+      this.productsListToLocalStorage();
+    },
+    // Remove product method
+    removeProduct(productId) {
+      this.productsList = this.productsList.filter(
+        (product) => product.id !== productId
+      );
+      this.productsListToLocalStorage();
+    },
+    // Set productsList to localStorage
+    productsListToLocalStorage() {
+      localStorage.setItem("productsList", JSON.stringify(this.productsList));
+    },
   },
 };
 </script>

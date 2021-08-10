@@ -2,18 +2,71 @@
   <header class="header">
     <h1 class="header__title">Добавление товара</h1>
     <div class="header__filter">
-      <button class="filter__title filter__element_padding">
-        <span>По умолчанию</span>
+      <button
+        class="filter__title filter__title_margin filter__element_padding"
+      >
+        <span>{{ filterIdToText }}</span>
         <span class="filter__arrow"></span>
       </button>
       <div class="filter__menu">
-        <li class="filter__element_padding">По возрастанию цены</li>
-        <li class="filter__element_padding">По убыванию цены</li>
-        <li class="filter__element_padding">По наименованию</li>
+        <HeaderFilterItem
+          v-for="filter in filters"
+          v-bind:key="filter.id"
+          v-bind:filter="filter"
+          v-on:products-sort="productsSort"
+        />
       </div>
     </div>
   </header>
 </template>
+
+<script>
+import HeaderFilterItem from "@/components/HeaderFilterItem";
+
+export default {
+  props: ["sortFilterId"],
+  data() {
+    return {
+      filters: [
+        {
+          name: "По умолчанию",
+          id: 0,
+        },
+        {
+          name: "По цене min",
+          id: 1,
+        },
+        {
+          name: "По цене max",
+          id: 2,
+        },
+        {
+          name: "По наименованию",
+          id: 3,
+        },
+      ],
+      currentFilter: "По умолчанию",
+    };
+  },
+  components: {
+    HeaderFilterItem,
+  },
+  computed: {
+    filterIdToText() {
+      const filterObj = this.filters.find(
+        (filterObj) => filterObj.id === this.sortFilterId
+      );
+
+      return filterObj.name;
+    },
+  },
+  methods: {
+    productsSort(filterId) {
+      this.$emit("product-sort", filterId);
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 @import "../style/templ";
@@ -76,28 +129,19 @@
     .filter__menu {
       @extend %filter-style;
 
+      width: 100%;
       opacity: 0;
       position: absolute;
-      top: -100vh;
+      transform: scaleY(0);
+      transform-origin: 0 0;
       transition: var(--main-transition);
       z-index: 1;
       text-align: center;
     }
-
-    .filter__menu li {
-      display: block;
-      transition: var(--main-transition);
-      color: inherit;
-    }
-
-    .filter__menu li:hover {
-      cursor: pointer;
-      color: #000;
-    }
   }
 
   .header__filter:hover .filter__menu {
-    top: 100%;
+    transform: scaleY(1);
     opacity: 1;
   }
 }

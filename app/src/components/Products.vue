@@ -1,10 +1,13 @@
 <template>
   <div class="products">
-    <ProductItem
-      v-for="product in productsList"
-      :key="product.id"
-      v-bind:product="product"
-    />
+    <transition-group name="list">
+      <ProductItem
+        v-for="product in productsList"
+        :key="product.id"
+        v-bind:product="product"
+        v-on:remove-product-item="removeProduct"
+      />
+    </transition-group>
   </div>
 </template>
 
@@ -16,10 +19,25 @@ export default {
   components: {
     ProductItem,
   },
+  methods: {
+    removeProduct(prodId) {
+      this.$emit("remove-product", prodId);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.list-leave-active {
+  position: absolute;
+}
+
 .products {
   display: flex;
   flex-wrap: wrap;

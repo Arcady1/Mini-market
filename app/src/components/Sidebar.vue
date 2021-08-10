@@ -5,6 +5,7 @@
       <SidebarInputTitle v-bind:titleInfo="sidebarTitles[0]" />
       <input
         type="text"
+        autocomplete="off"
         class="sidebar__input sidebar__input_padding"
         id="inputProductName"
         placeholder="Введите наименование товара"
@@ -19,6 +20,7 @@
     <div class="sidebar__input__wrapper sidebar__input__wrapper_margin">
       <SidebarInputTitle v-bind:titleInfo="sidebarTitles[1]" />
       <textarea
+        autocomplete="off"
         cols="10"
         rows="6"
         placeholder="Введите описание товара"
@@ -32,6 +34,7 @@
       <SidebarInputTitle v-bind:titleInfo="sidebarTitles[2]" />
       <input
         type="text"
+        autocomplete="off"
         class="sidebar__input sidebar__input_padding"
         id="inputProductLink"
         placeholder="Введите ссылку"
@@ -47,13 +50,14 @@
       <SidebarInputTitle v-bind:titleInfo="sidebarTitles[3]" />
       <input
         type="text"
+        autocomplete="off"
         class="sidebar__input sidebar__input_padding"
         id="inputProductPrice"
         placeholder="Введите цену"
         required
         pattern="(\d+ *)+"
+        v-model="input.info.priceStr"
         v-on:input="inputChangeHandler($event)"
-        v-model="input.info.price"
       />
       <p class="sidebar__input__invalid">Поле является обязательным</p>
     </div>
@@ -91,7 +95,8 @@ export default {
           name: "",
           descr: "",
           link: "",
-          price: null,
+          priceStr: "",
+          price: "",
         },
       },
     };
@@ -107,14 +112,20 @@ export default {
       const elem = event.target;
       const correctObj = this.input.correct;
 
-      // Input status: correct / incorrect
+      this.setInputStatus(elem, correctObj);
+      this.submitButtonActivate(correctObj);
+      this.priceThousandsSeparation(elem);
+    },
+    // Set input status: correct / incorrect
+    setInputStatus(elem, correctObj) {
       if (elem.validity.valid) {
         correctObj[elem.id] = true;
       } else {
         correctObj[elem.id] = false;
       }
-
-      // Activate the submit button if all input fields are correct
+    },
+    // Activate the submit button if all input fields are correct
+    submitButtonActivate(correctObj) {
       if (
         correctObj.inputProductName &&
         correctObj.inputProductLink &&
@@ -124,13 +135,15 @@ export default {
       } else {
         this.isButtonActive = false;
       }
-
-      // Thousands space separation mask for the price field
+    },
+    // Thousands space separation mask for the price field
+    priceThousandsSeparation(elem) {
       if (elem.id === "inputProductPrice") {
-        const price = this.input.info.price.replace(/ /g, "");
+        let priceStr = this.input.info.priceStr.replace(/ /g, "");
 
-        if (price && !isNaN(price - 0)) {
-          this.input.info.price = (price - 0)
+        if (priceStr && !isNaN(priceStr - 0)) {
+          this.input.info.price = priceStr - 0;
+          this.input.info.priceStr = this.input.info.price
             .toLocaleString()
             .replace(/,/g, " ");
         }
@@ -142,31 +155,37 @@ export default {
         return false;
       }
 
+      const input = this.input;
       // Generating a new product
       const newProductItem = {
         id: new Date() - 0 + Math.random(),
-        name: this.input.info.name,
-        descr: this.input.info.descr,
-        imageLink: this.input.info.link,
-        price: this.input.info.price,
+        name: input.info.name,
+        descr: input.info.descr,
+        imageLink: input.info.link,
+        priceStr: input.info.priceStr,
+        price: input.info.price,
       };
 
-      // Input field cleaning
-      this.input.info.name = "";
-      this.input.info.descr = "";
-      this.input.info.link = "";
-      this.input.info.price = null;
-
-      // Input status incorrect
-      this.input.correct.inputProductName = false;
-      this.input.correct.inputProductLink = false;
-      this.input.correct.inputProductPrice = false;
+      this.inputClean(input);
+      this.inputStatusReset(input);
 
       // Deactivating the send button
       this.isButtonActive = false;
-
       // Adding a new product
       this.$emit("add-product", newProductItem);
+    },
+    // Input fields cleaning
+    inputClean(input) {
+      for (let key in input.info) {
+        input.info[key] = "";
+      }
+    },
+    // Input status reset
+    inputStatusReset(input) {
+      // Input status incorrect
+      for (let key in input.correct) {
+        input.correct[key] = false;
+      }
     },
   },
 };
