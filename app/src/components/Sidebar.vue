@@ -111,14 +111,20 @@ export default {
       const elem = event.target;
       const correctObj = this.input.correct;
 
-      // Input status: correct / incorrect
+      this.setInputStatus(elem, correctObj);
+      this.submitButtonActivate(correctObj);
+      this.priceThousandsSeparation(elem);
+    },
+    // Set input status: correct / incorrect
+    setInputStatus(elem, correctObj) {
       if (elem.validity.valid) {
         correctObj[elem.id] = true;
       } else {
         correctObj[elem.id] = false;
       }
-
-      // Activate the submit button if all input fields are correct
+    },
+    // Activate the submit button if all input fields are correct
+    submitButtonActivate(correctObj) {
       if (
         correctObj.inputProductName &&
         correctObj.inputProductLink &&
@@ -128,8 +134,9 @@ export default {
       } else {
         this.isButtonActive = false;
       }
-
-      // Thousands space separation mask for the price field
+    },
+    // Thousands space separation mask for the price field
+    priceThousandsSeparation(elem) {
       if (elem.id === "inputProductPrice") {
         const price = this.input.info.price.replace(/ /g, "");
 
@@ -155,22 +162,28 @@ export default {
         price: this.input.info.price - 0,
       };
 
-      // Input field cleaning
-      this.input.info.name = "";
-      this.input.info.descr = "";
-      this.input.info.link = "";
-      this.input.info.price = null;
-
-      // Input status incorrect
-      this.input.correct.inputProductName = false;
-      this.input.correct.inputProductLink = false;
-      this.input.correct.inputProductPrice = false;
+      this.inputClean(this.input);
+      this.inputStatusReset(this.input);
 
       // Deactivating the send button
       this.isButtonActive = false;
 
       // Adding a new product
       this.$emit("add-product", newProductItem);
+    },
+    // Input fields cleaning
+    inputClean(input) {
+      input.info.name = "";
+      input.info.descr = "";
+      input.info.link = "";
+      input.info.price = null;
+    },
+    // Input status reset
+    inputStatusReset(input) {
+      // Input status incorrect
+      input.correct.inputProductName = false;
+      input.correct.inputProductLink = false;
+      input.correct.inputProductPrice = false;
     },
   },
 };

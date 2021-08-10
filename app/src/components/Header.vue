@@ -25,12 +25,6 @@ import HeaderFilterItem from "@/components/HeaderFilterItem";
 
 export default {
   props: ["sortFilterId"],
-  // filters: {
-  //   filterIdToText(filterId) {
-  //     console.log(filterId);
-  //     return filterId + 20;
-  //   },
-  // },
   data() {
     return {
       filters: [

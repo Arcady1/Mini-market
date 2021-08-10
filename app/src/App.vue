@@ -27,21 +27,17 @@ export default {
         { title: "Ссылка на изображение товара", necessarily: true },
         { title: "Цена товара", necessarily: true },
       ],
-      productsList: [
-        // {
-        //   id: new Date() - 0 + Math.random(),
-        //   name: this.input.info.name,
-        //   descr: this.input.info.descr,
-        //   imageLink: this.input.info.link,
-        //   price: this.input.info.price,
-        // },
-      ],
+      productsList: [],
       sortFilterId: 0,
     };
   },
+  // mounted() {},
   components: {
     Header,
     Main,
+  },
+  mounted() {
+    this.productsList = JSON.parse(localStorage.getItem("productsList"));
   },
   methods: {
     // Product sorting method
@@ -73,12 +69,18 @@ export default {
     // Add product method
     addProduct(newProduct) {
       this.productsList.push(newProduct);
+      this.productsListToLocalStorage();
     },
     // Remove product method
     removeProduct(productId) {
       this.productsList = this.productsList.filter(
         (product) => product.id !== productId
       );
+      this.productsListToLocalStorage();
+    },
+    // Set productsList to localStorage
+    productsListToLocalStorage() {
+      localStorage.setItem("productsList", JSON.stringify(this.productsList));
     },
   },
 };

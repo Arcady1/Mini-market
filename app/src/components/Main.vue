@@ -4,8 +4,9 @@
       v-bind:sidebarTitles="sidebarTitles"
       v-on:add-product="addProductItem"
     />
+    <Loader v-if="productsLoading"/>
     <Products
-      v-if="productsList.length"
+      v-else-if="productsList.length"
       v-bind:productsList="productsList"
       v-on:remove-product="removeProductItem"
     />
@@ -17,6 +18,7 @@
 import Sidebar from "@/components/Sidebar";
 import Products from "@/components/Products";
 import Main from "@/components/Main.vue";
+import Loader from "@/components/Loader";
 
 export default {
   props: ["sidebarTitles", "productsList"],
@@ -24,6 +26,17 @@ export default {
     Sidebar,
     Products,
     Main,
+    Loader,
+  },
+  data() {
+    return {
+      productsLoading: true,
+    };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.productsLoading = false;
+    }, 1000);
   },
   methods: {
     addProductItem(newProduct) {
@@ -51,7 +64,7 @@ export default {
   display: block;
   width: 100%;
   height: auto;
-  background-image: url('../img/shopping-basket.svg');
+  background-image: url("../img/shopping-basket.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: auto 40%;
