@@ -72,7 +72,9 @@ export default {
 @import "../style/templ";
 
 .header {
+  display: -webkit-box;
   display: flex;
+  -webkit-box-pack: justify;
   justify-content: space-between;
   width: 100%;
   height: auto;
@@ -80,8 +82,13 @@ export default {
   .header__title {
     @extend %title-font;
 
+    display: -webkit-box;
+
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
     flex-direction: column;
+    -webkit-box-pack: center;
     justify-content: center;
   }
 
@@ -95,11 +102,15 @@ export default {
     position: relative;
 
     .filter__title {
+      display: -webkit-box;
       display: flex;
+      -webkit-box-pack: justify;
       justify-content: space-between;
+      -webkit-box-align: center;
       align-items: center;
       width: 100%;
       height: 100%;
+      -webkit-transition: var(--main-transition);
       transition: var(--main-transition);
       color: inherit;
 
@@ -109,7 +120,9 @@ export default {
         height: 4.59px;
         border: solid #b4b4b4;
         border-width: 0 1px 1px 0;
+        -webkit-transform: rotate(45deg);
         transform: rotate(45deg);
+        -webkit-transition: var(--main-transition);
         transition: var(--main-transition);
       }
     }
@@ -132,8 +145,11 @@ export default {
       width: 100%;
       opacity: 0;
       position: absolute;
+      -webkit-transform: scaleY(0);
       transform: scaleY(0);
+      -webkit-transform-origin: 0 0;
       transform-origin: 0 0;
+      -webkit-transition: var(--main-transition);
       transition: var(--main-transition);
       z-index: 1;
       text-align: center;
@@ -141,6 +157,7 @@ export default {
   }
 
   .header__filter:hover .filter__menu {
+    -webkit-transform: scaleY(1);
     transform: scaleY(1);
     opacity: 1;
   }

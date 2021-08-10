@@ -49,6 +49,7 @@ export default {
 
 <style lang="scss" scoped>
 .main {
+  display: -webkit-box;
   display: flex;
   width: 100%;
   height: auto;

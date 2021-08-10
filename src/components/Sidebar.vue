@@ -195,7 +195,10 @@ export default {
 @import "../style/templ";
 
 .sidebar {
+  display: -webkit-box;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
   flex-direction: column;
   width: 100%;
   min-width: 161px;
@@ -226,7 +229,24 @@ export default {
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
       border-radius: 4px;
       border: 1px solid transparent;
+      -webkit-transition: var(--main-transition);
       transition: var(--main-transition);
+    }
+
+    .sidebar__input::-webkit-input-placeholder {
+      color: #b4b4b4;
+    }
+
+    .sidebar__input::-moz-placeholder {
+      color: #b4b4b4;
+    }
+
+    .sidebar__input:-ms-input-placeholder {
+      color: #b4b4b4;
+    }
+
+    .sidebar__input::-ms-input-placeholder {
+      color: #b4b4b4;
     }
 
     .sidebar__input::placeholder {
@@ -245,10 +265,12 @@ export default {
       width: 100%;
       height: auto;
       opacity: 0;
+      -webkit-transition: var(--main-transition);
       transition: var(--main-transition);
     }
 
     .sidebar__input:not(:placeholder-shown) {
+      -webkit-transition: none;
       transition: none;
 
       color: #3f3f3f;
@@ -274,6 +296,7 @@ export default {
     width: 100%;
     height: auto;
     border-radius: 10px;
+    -webkit-transition: var(--main-transition);
     transition: var(--main-transition);
   }
 

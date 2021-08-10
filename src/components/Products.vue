@@ -31,6 +31,7 @@ export default {
 .list-enter,
 .list-leave-to {
   opacity: 0;
+  -webkit-transform: translateY(30px);
   transform: translateY(30px);
 }
 
@@ -39,8 +40,10 @@ export default {
 }
 
 .products {
+  display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
+  -webkit-box-pack: justify;
   justify-content: space-between;
   width: 100%;
   max-width: 1028px;
