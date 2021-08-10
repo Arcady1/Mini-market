@@ -17,16 +17,14 @@
 <script>
 import Sidebar from "@/components/Sidebar";
 import Products from "@/components/Products";
-import Main from "@/components/Main.vue";
 import Loader from "@/components/Loader";
 
 export default {
   props: ["sidebarTitles", "productsList"],
   components: {
     Sidebar,
-    Products,
-    Main,
     Loader,
+    Products,
   },
   data() {
     return {
