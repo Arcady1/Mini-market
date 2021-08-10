@@ -37,7 +37,11 @@ export default {
     Main,
   },
   mounted() {
-    this.productsList = JSON.parse(localStorage.getItem("productsList"));
+    if (localStorage.getItem("productsList") === null) {
+      this.productsList = [];
+    } else {
+      this.productsList = JSON.parse(localStorage.getItem("productsList"));
+    }
   },
   methods: {
     // Product sorting method

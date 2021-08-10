@@ -33,11 +33,11 @@ export default {
           id: 0,
         },
         {
-          name: "По возрастанию цены",
+          name: "По цене min",
           id: 1,
         },
         {
-          name: "По убыванию цены",
+          name: "По цене max",
           id: 2,
         },
         {
@@ -90,7 +90,7 @@ export default {
     @extend %filter-style;
 
     display: block;
-    width: auto;
+    width: 121.49px;
     height: 36px;
     position: relative;
 
@@ -114,10 +114,6 @@ export default {
       }
     }
 
-    .filter__title_margin {
-      margin-right: 5px;
-    }
-
     .filter__title:hover {
       color: #000;
 
@@ -136,7 +132,8 @@ export default {
       width: 100%;
       opacity: 0;
       position: absolute;
-      top: -50vh;
+      transform: scaleY(0);
+      transform-origin: 0 0;
       transition: var(--main-transition);
       z-index: 1;
       text-align: center;
@@ -144,7 +141,7 @@ export default {
   }
 
   .header__filter:hover .filter__menu {
-    top: 100%;
+    transform: scaleY(1);
     opacity: 1;
   }
 }
