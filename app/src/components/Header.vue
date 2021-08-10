@@ -142,7 +142,7 @@ export default {
       width: 100%;
       opacity: 0;
       position: absolute;
-      top: -410%;
+      top: -610%;
       transition: var(--main-transition);
       z-index: 1;
       text-align: center;

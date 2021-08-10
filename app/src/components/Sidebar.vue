@@ -152,7 +152,7 @@ export default {
         name: this.input.info.name,
         descr: this.input.info.descr,
         imageLink: this.input.info.link,
-        price: this.input.info.price,
+        price: this.input.info.price - 0,
       };
 
       // Input field cleaning
