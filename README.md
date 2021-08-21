@@ -1,6 +1,6 @@
 <h1 align="center">
   <a href="https://vue-mini-market.herokuapp.com/">
-    <img src="https://image.flaticon.com/icons/png/512/862/862856.png" alt="" width="500px"></img>
+    <img src="https://image.flaticon.com/icons/png/512/3144/3144456.png" alt="" width="400px"></img>
   </a>
   <br>
   <a href="https://tot-system-chat.herokuapp.com/">Mini market</a>
@@ -48,8 +48,7 @@ This software uses the following open source packages:
 ### License
 MIT
 
-[0]: https://github.com/Arcady1/TOTSystem/blob/master/github_gif/chat.gif
-
+[0]: https://github.com/Arcady1/Mini-market/blob/master/github_gif/demo.gif
 [1]: https://vue-mini-market.herokuapp.com/
 [2]: https://github.com/vuejs/vue
 [5]: https://github.com/Arcady1/Eye-tracker
