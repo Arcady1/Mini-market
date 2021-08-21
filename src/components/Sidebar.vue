@@ -8,13 +8,13 @@
         autocomplete="off"
         class="sidebar__input sidebar__input_padding"
         id="inputProductName"
-        placeholder="Введите наименование товара"
+        placeholder="Enter the product name"
         required
         pattern="(\s*\S+\s*)+"
         v-on:input="inputChangeHandler($event)"
         v-model="input.info.name"
       />
-      <p class="sidebar__input__invalid">Поле является обязательным</p>
+      <p class="sidebar__input__invalid">The field is required</p>
     </div>
     <!-- Описание товара -->
     <div class="sidebar__input__wrapper sidebar__input__wrapper_margin">
@@ -23,11 +23,11 @@
         autocomplete="off"
         cols="10"
         rows="6"
-        placeholder="Введите описание товара"
+        placeholder="Enter product description"
         class="sidebar__input sidebar__input__textarea sidebar__input_padding"
         v-model="input.info.descr"
       ></textarea>
-      <p class="sidebar__input__invalid">Поле является обязательным</p>
+      <p class="sidebar__input__invalid">The field is required</p>
     </div>
     <!-- Ссылка на изображение товара -->
     <div class="sidebar__input__wrapper sidebar__input__wrapper_margin">
@@ -37,13 +37,13 @@
         autocomplete="off"
         class="sidebar__input sidebar__input_padding"
         id="inputProductLink"
-        placeholder="Введите ссылку"
+        placeholder="Enter the image link"
         required
         pattern="^\S*$"
         v-on:input="inputChangeHandler($event)"
         v-model="input.info.link"
       />
-      <p class="sidebar__input__invalid">Поле является обязательным</p>
+      <p class="sidebar__input__invalid">The field is required</p>
     </div>
     <!-- Цена товара -->
     <div class="sidebar__input__wrapper sidebar__input__wrapper_margin">
@@ -53,13 +53,13 @@
         autocomplete="off"
         class="sidebar__input sidebar__input_padding"
         id="inputProductPrice"
-        placeholder="Введите цену"
+        placeholder="Enter the price"
         required
         pattern="(\d+ *)+"
         v-model="input.info.priceStr"
         v-on:input="inputChangeHandler($event)"
       />
-      <p class="sidebar__input__invalid">Поле является обязательным</p>
+      <p class="sidebar__input__invalid">The field is required</p>
     </div>
     <!-- Добавить товар -->
     <button
@@ -72,7 +72,7 @@
       v-bind:class="{ sidebar__button_active: sendButtonActive() }"
       @click.prevent="onSubmit()"
     >
-      Добавить товар
+      Add product
     </button>
   </form>
 </template>

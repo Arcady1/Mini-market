@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <h1 class="header__title">Добавление товара</h1>
+    <h1 class="header__title">Adding a product</h1>
     <div class="header__filter">
       <button
         class="filter__title filter__title_margin filter__element_padding"
@@ -29,23 +29,22 @@ export default {
     return {
       filters: [
         {
-          name: "По умолчанию",
+          name: "By default",
           id: 0,
         },
         {
-          name: "По цене min",
+          name: "Price min",
           id: 1,
         },
         {
-          name: "По цене max",
+          name: "Price max",
           id: 2,
         },
         {
-          name: "По наименованию",
+          name: "By name",
           id: 3,
         },
       ],
-      currentFilter: "По умолчанию",
     };
   },
   components: {

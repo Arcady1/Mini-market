@@ -22,16 +22,15 @@ export default {
   data() {
     return {
       sidebarTitles: [
-        { title: "Наименование товара", necessarily: true },
-        { title: "Описание товара", necessarily: false },
-        { title: "Ссылка на изображение товара", necessarily: true },
-        { title: "Цена товара", necessarily: true },
+        { title: "Name", necessarily: true },
+        { title: "Description", necessarily: false },
+        { title: "Image link", necessarily: true },
+        { title: "Price", necessarily: true },
       ],
       productsList: [],
       sortFilterId: 0,
     };
   },
-  // mounted() {},
   components: {
     Header,
     Main,
